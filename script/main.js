@@ -109,4 +109,12 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     }
+
+    const hotlineBtn = document.getElementById('hotline-btn');
+
+    if (hotlineBtn) {
+         hotlineBtn.addEventListener('click', function() {
+        alert("Cảm ơn bạn đã quan tâm đến Shop Giày Của Tui!\n\nVui lòng gọi đến số Hotline: 1900.xxxx.xx để được hỗ trợ nhanh nhất nhé.");
+        });
+    }
 });
