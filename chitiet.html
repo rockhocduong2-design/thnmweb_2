@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Sản Phẩm - Nike Air Force 1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        a { text-decoration: none; color: inherit; }
+
+        /* Giao diện chọn kích cỡ */
+        .detail-size-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            max-width: 350px;
+        }
+        .detail-size-item {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .detail-size-item:hover { border-color: #000; }
+        .detail-size-item.selected {
+            background-color: #000;
+            color: #fff;
+            border-color: #000;
+        }
+
+        /* Giao diện chọn màu sắc */
+        .detail-color-dots { display: flex; gap: 12px; }
+        .detail-color-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .detail-color-dot.selected {
+            transform: scale(1.15);
+            border: 2px solid #000;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        /* Ảnh sản phẩm chính */
+        .product-detail-img {
+            max-height: 450px;
+            object-fit: contain;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3 sticky-top">
+        <div class="container align-items-center">
+            <button class="navbar-toggler shadow-none border-0 pe-2" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <a class="navbar-brand logo p-0 m-0 mx-auto mx-lg-0" href="index.html">
+                <img src="Image/Logo.png" alt="Logo" style="width: 120px; object-fit: contain;">
+            </a>
+
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu"
+                aria-labelledby="offcanvasMenuLabel">
+
+                <div class="offcanvas-header border-bottom d-lg-none">
+                    <img src="Image/Logo.png" alt="Logo" style="width: 100px;">
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+
+                <div class="offcanvas-body">
+                    <div
+                        class="nav-menu d-flex flex-column flex-lg-row gap-3 gap-lg-4 flex-grow-1 justify-content-center align-items-start align-items-lg-center w-100">
+                        <div class="d-flex flex-column flex-lg-row gap-3 gap-lg-4 fs-5 text-uppercase fw-semibold">
+                            <a href="index.html" class="nav-link">TRANG CHỦ</a>
+
+                            <a href="giaynu.html" class="nav-link">GIÀY NỮ</a>
+                            <a href="giaynam.html" class="nav-link">GIÀY NAM</a>
+                            <a href="sale.html" class="nav-link text-danger">SALE 50%</a>
+                            <a href="banchay.html" class="nav-link">SẢN PHẨM BÁN CHẠY</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <div class="search-box d-none d-md-flex align-items-center w-auto"
+                    style="border: 1px solid #ccc; border-radius: 20px; padding: 6px 15px; width: 180px;">
+                    <input type="text" placeholder="Tìm kiếm..." class="w-100"
+                        style="border: none; outline: none; font-size: 14px;">
+                    <i class="fa fa-search text-muted"></i>
+                </div>
+
+                <a href="login.html" class="text-secondary"><i class="fa fa-user fs-5 icon-action" title="User"></i></a>
+                <a href="cart.html" class="text-secondary"><i class="fa fa-shopping-cart fs-5 icon-action"
+                        title="Cart"></i></a>
+            </div>
+        </div>
+    </header>
+    <main class="container my-5 py-2">
+        <div class="row g-5">
+            
+            <div class="col-lg-6 order-2 order-lg-1">
+                <nav aria-label="breadcrumb" class="mb-3">
+                    <ol class="breadcrumb small text-uppercase fw-medium text-muted m-0">
+                        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="giaynu.html">Giày Nữ</a></li>
+                        <li class="breadcrumb-item active text-dark" aria-current="page">Nike</li>
+                    </ol>
+                </nav>
+
+                <h1 class="fw-bold text-dark mb-2 fs-2">Nike Air Force 1 '07</h1>
+                <p class="text-muted small mb-3">Mã sản phẩm: NAF-072026</p>
+                
+                <h3 class="fw-bold text-danger mb-4 fs-3">3,519,000₫</h3>
+
+                <hr class="opacity-10 mb-4">
+
+                <div class="mb-4">
+                    <h6 class="fw-bold text-uppercase small mb-3">Màu sắc:</h6>
+                    <div class="detail-color-dots">
+                        <div class="detail-color-dot selected" style="background-color: #f4b8b8;" title="Hồng Phấn" data-color="Hồng Phấn"></div>
+                        <div class="detail-color-dot" style="background-color: #ffffff;" title="Trắng Basic" data-color="Trắng Basic"></div>
+                        <div class="detail-color-dot" style="background-color: #000000;" title="Đen Huyền Bí" data-color="Đen Huyền Bí"></div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h6 class="fw-bold text-uppercase small mb-3">Kích cỡ (Size):</h6>
+                    <div class="detail-size-grid">
+                        <div class="detail-size-item">36</div>
+                        <div class="detail-size-item selected">37</div>
+                        <div class="detail-size-item">38</div>
+                        <div class="detail-size-item">39</div>
+                        <div class="detail-size-item">40</div>
+                    </div>
+                </div>
+
+                <hr class="opacity-10 my-4">
+
+                <div class="mb-4">
+                    <h6 class="fw-bold text-uppercase small mb-2">Mô tả sản phẩm:</h6>
+                    <p class="text-secondary small lh-base">
+                        Vẻ rạng rỡ vẫn tiếp tục trường tồn trên Nike Air Force 1 '07, mẫu giày bóng rổ nguyên bản mang tính biểu tượng được làm mới lại với những điểm nhấn hiện đại. Chất liệu da cao cấp cùng đường may tỉ mỉ mang lại phom dáng ôm chân và độ bền bỉ vượt thời gian.
+                    </p>
+                </div>
+
+                <div class="row g-3 pt-2">
+                    <div class="col-md-6">
+                        <a href="dathang.html" class="btn btn-dark w-100 py-3 fw-bold text-uppercase shadow-sm" style="border-radius: 4px; letter-spacing: 0.5px;">
+                            Mua ngay
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-outline-dark w-100 py-3 fw-bold text-uppercase" style="border-radius: 4px; letter-spacing: 0.5px;">
+                            Thêm vào giỏ hàng
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 order-1 order-lg-2 text-center bg-light rounded d-flex align-items-center justify-content-center p-4" style="min-height: 400px;">
+                <img src="Image/Nike Air Force 1 '07.avif" alt="Nike Air Force 1 '07" class="img-fluid product-detail-img">
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-black text-white py-5 mt-5">
+        <div class="container text-center">
+            <h3 class="fs-5 fw-semibold mb-2">HỆ THỐNG CỬA HÀNG</h3>
+            <p class="text-secondary small mb-4">Xem địa chỉ các cửa hàng</p>
+            <hr class="border-secondary opacity-50 mb-4">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-start">
+                <div class="info mb-3 mb-md-0">
+                    <p class="text-white fw-medium mb-1">SHOP GIÀY CỦA TUI</p>
+                    <p class="text-secondary small mb-0">Địa chỉ: Quận 8, Thành phố Hồ Chí Minh</p>
+                </div>
+                <div class="mall-section d-flex align-items-center gap-3">
+                    <span class="fs-2 fw-bold">Mall</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Xử lý click chọn Size giày
+            const sizeItems = document.querySelectorAll('.detail-size-item');
+            sizeItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    sizeItems.forEach(i => i.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+
+            // Xử lý click chọn Màu sắc
+            const colorDots = document.querySelectorAll('.detail-color-dot');
+            colorDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    colorDots.forEach(d => d.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

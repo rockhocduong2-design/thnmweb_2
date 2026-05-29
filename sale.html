@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sale 50% - Shop Giày</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* HEADER */
+        .logo img {
+            width: 120px;
+            object-fit: contain;
+        }
+
+        .nav-menu .top-nav a,
+        .nav-menu .bottom-nav a {
+            font-size: 18px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .search-box {
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            padding: 5px 15px;
+            width: 180px;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        /* SIDEBAR BỘ LỌC */
+        .filter-title {
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #333;
+            display: inline-block;
+        }
+
+        .filter-section h6 {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 25px 0 15px;
+        }
+
+        .filter-list {
+            list-style: none;
+            padding: 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .filter-list li {
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .filter-list input {
+            margin-right: 10px;
+        }
+
+        /* Size Grid */
+        .size-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+
+        .size-item {
+            border: 1px solid #ddd;
+            padding: 5px;
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .size-item:hover {
+            border-color: #333;
+        }
+
+        /* Color Dots */
+        .color-filter-dots {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .color-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid #eee;
+            cursor: pointer;
+        }
+
+        /* PRODUCT LIST */
+        .category-title {
+            font-size: 32px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .product-card .img-wrapper {
+            width: 100%;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .product-card .img-wrapper img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .product-name {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .product-card .color-dots .color-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .product-card .color-dots .color-dot:hover {
+            transform: scale(1.2);
+        }
+
+        .social-row img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            cursor: pointer;
+        }
+
+        /* FOOTER */
+        .footer-black {
+            background: #000;
+            color: #fff;
+            padding: 40px 0;
+        }
+
+        .footer-white {
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* NÚT FLOAT */
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #ffb6c1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 999;
+            transition: 0.3s;
+        }
+
+        .floating-btn:hover {
+            background-color: #ff9fb0;
+        }
+
+        .floating-btn svg {
+            width: 30px;
+            height: 30px;
+            fill: #fff;
+        }
+
+        /* --- CSS RIÊNG CHO TRANG SALE --- */
+        .sale-header-box {
+            background-color: #ffd6df;
+            border-radius: 8px;
+        }
+
+        .sale-badge-large {
+            width: 55px;
+            height: 55px;
+            background-color: #e74c3c;
+            font-size: 15px;
+        }
+
+        .sale-badge-small {
+            width: 40px;
+            height: 40px;
+            background-color: #e74c3c;
+            font-size: 12px;
+            z-index: 2;
+            /* Đảm bảo nổi lên trên ảnh */
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 767.98px) {
+
+            header.container {
+                flex-direction: column !important;
+                /* Xếp dọc các phần tử */
+                gap: 15px;
+                text-align: center;
+            }
+
+            .nav-menu {
+                padding-left: 0 !important;
+                /* Bỏ khoảng trống bên trái */
+            }
+
+            .nav-menu .top-nav {
+                flex-wrap: wrap;
+                /* Cho phép rớt dòng nếu menu quá dài */
+                justify-content: center;
+                gap: 15px !important;
+                font-size: 16px !important;
+            }
+
+            .nav-menu .bottom-nav {
+                font-size: 16px !important;
+            }
+
+            .search-box {
+                width: 100% !important;
+                /* Ô tìm kiếm tràn viền điện thoại */
+            }
+
+            .banner {
+                height: 250px !important;
+                /* Thu nhỏ chiều cao banner */
+            }
+
+            .category-title,
+            .section-title {
+                font-size: 24px !important;
+                /* Chữ tiêu đề nhỏ lại */
+            }
+
+            .product-card .img-wrapper {
+                height: 140px !important;
+                /* Ảnh sản phẩm lùn xuống cho vừa màn hình nhỏ */
+            }
+
+            .product-name {
+                font-size: 13px !important;
+            }
+
+            .product-price {
+                font-size: 14px !important;
+            }
+
+            /*Form */
+            .login-box,
+            .account-banner {
+                padding: 40px 20px !important;
+            }
+
+            .login-box h1 {
+                font-size: 28px !important;
+            }
+
+            .benefits-box {
+                padding-left: 0 !important;
+                border-left: none !important;
+                border-top: 1px solid #ddd;
+                padding-top: 30px;
+                margin-top: 20px;
+            }
+
+            .footer-col {
+                text-align: center;
+                margin-bottom: 30px !important;
+            }
+
+            .social-row {
+                justify-content: center !important;
+            }
+
+            .footer-black-bottom {
+                flex-direction: column;
+                text-align: center !important;
+                gap: 20px;
+            }
+
+            .mall-section {
+                justify-content: center !important;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .nav-menu .top-nav {
+                flex-direction: column;
+                gap: 10px !important;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3 sticky-top">
+        <div class="container align-items-center">
+            <button class="navbar-toggler shadow-none border-0 pe-2" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <a class="navbar-brand logo p-0 m-0 mx-auto mx-lg-0" href="index.html">
+                <img src="Image/Logo.png" alt="Logo" style="width: 120px; object-fit: contain;">
+            </a>
+
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu"
+                aria-labelledby="offcanvasMenuLabel">
+
+                <div class="offcanvas-header border-bottom d-lg-none">
+                    <img src="Image/Logo.png" alt="Logo" style="width: 100px;">
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+
+                <div class="offcanvas-body">
+                    <div
+                        class="nav-menu d-flex flex-column flex-lg-row gap-3 gap-lg-4 flex-grow-1 justify-content-center align-items-start align-items-lg-center w-100">
+                        <div class="d-flex flex-column flex-lg-row gap-3 gap-lg-4 fs-5 text-uppercase fw-semibold">
+                            <a href="index.html" class="nav-link">TRANG CHỦ</a>
+
+                            <a href="giaynu.html" class="nav-link">GIÀY NỮ</a>
+                            <a href="giaynam.html" class="nav-link">GIÀY NAM</a>
+                            <a href="sale.html" class="nav-link text-danger">SALE 50%</a>
+                            <a href="banchay.html" class="nav-link">SẢN PHẨM BÁN CHẠY</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <div class="search-box d-none d-md-flex align-items-center w-auto"
+                    style="border: 1px solid #ccc; border-radius: 20px; padding: 6px 15px; width: 180px;">
+                    <input type="text" placeholder="Tìm kiếm..." class="w-100"
+                        style="border: none; outline: none; font-size: 14px;">
+                    <i class="fa fa-search text-muted"></i>
+                </div>
+
+                <a href="login.html" class="text-secondary"><i class="fa fa-user fs-5 icon-action" title="User"></i></a>
+                <a href="cart.html" class="text-secondary"><i class="fa fa-shopping-cart fs-5 icon-action"
+                        title="Cart"></i></a>
+            </div>
+        </div>
+    </header>
+    <hr class="m-0 opacity-10">
+
+    <main class="container my-5">
+        <div class="row">
+
+            <aside class="col-lg-3 pe-lg-5">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="filter-title">BỘ LỌC</span>
+                    <a href="#" id="clear-all-filters" class="text-muted small text-decoration-underline">Xóa tất cả</a>
+                </div>
+
+                <div class="filter-section">
+                    <h6>Thương hiệu</h6>
+                    <ul class="filter-list">
+                        <li><input type="checkbox" value="bitis"> Biti's</li>
+                        <li><input type="checkbox" value="nike"> Nike</li>
+                        <li><input type="checkbox" value="adidas"> Adidas</li>
+                        <li><input type="checkbox" value="puma"> Puma</li>
+                        <li><input type="checkbox" value="new-balance"> New Balance</li>
+                        <li><input type="checkbox" value="asics"> ASICS</li>
+                        <li><input type="checkbox" value="reebok"> Reebok</li>
+                        <li><input type="checkbox" value="converse"> Converse</li>
+                        <li><input type="checkbox" value="vans"> Vans</li>
+                    </ul>
+                </div>
+
+                <div class="filter-section">
+                    <h6>Kích cỡ</h6>
+                    <div class="size-grid">
+                        <div class="size-item">36</div>
+                        <div class="size-item">37</div>
+                        <div class="size-item">38</div>
+                        <div class="size-item">39</div>
+                        <div class="size-item">40</div>
+                        <div class="size-item">41</div>
+                        <div class="size-item">42</div>
+                        <div class="size-item">43</div>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h6>Màu sắc</h6>
+                    <div class="color-filter-dots">
+                        <div class="color-dot" style="background: #000;" data-color="black"></div>
+                        <div class="color-dot" style="background: #e0e0e0;" data-color="light-gray"></div>
+                        <div class="color-dot" style="background: #c9b08f;" data-color="beige"></div>
+                        <div class="color-dot" style="background: #434d4f;" data-color="dark-gray"></div>
+                        <div class="color-dot" style="background: #cba8a8;" data-color="light-pink"></div>
+                        <div class="color-dot" style="background: #e4ebf1;" data-color="light-blue"></div>
+                        <div class="color-dot" style="background: #222;" data-color="dark"></div>
+                        <div class="color-dot" style="background: #f4b8b8;" data-color="light-pink"></div>
+                        <div class="color-dot" style="background: #d67a4d;" data-color="orange"></div>
+                        <div class="color-dot" style="background: #5f7a61;" data-color="green"></div>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h6>Loại giày</h6>
+                    <ul class="filter-list">
+                        <li><input type="checkbox" value="the-thao"> Giày thể thao</li>
+                        <li><input type="checkbox" value="chay-bo"> Giày chạy bộ</li>
+                        <li><input type="checkbox" value="casual"> Giày casual</li>
+                        <li><input type="checkbox" value="bong-ro"> Giày bóng rổ</li>
+                    </ul>
+                </div>
+            </aside>
+
+            <section class="col-lg-9">
+                <div class="sale-header-box d-flex justify-content-between align-items-center p-3 px-4 mb-4">
+                    <div>
+                        <h1 class="category-title m-0 pb-1 border-0">SALE 50%</h1>
+                        <p class="text-muted small m-0 fst-italic">Ưu đãi 50% - Số lượng có hạn!</p>
+                    </div>
+                    <div
+                        class="sale-badge-large rounded-circle text-white fw-bold d-flex align-items-center justify-content-center">
+                        - 50%
+                    </div>
+                </div>
+
+                <div class="row g-4 mt-2" id="product-list">
+                    <div class="col-md-4 col-6 mb-4 product-item" data-brand="nike"
+                        data-color="green light-gray dark-gray" data-type="the-thao chay-bo" data-size="39 40 41 42"
+                        data-price="1034500" data-order="1">
+                        <div class="card product-card border-0 text-center position-relative">
+                            <div
+                                class="sale-badge-small position-absolute top-0 start-0 rounded-circle text-white fw-bold d-flex align-items-center justify-content-center mt-2 ms-2">
+                                - 50%
+                            </div>
+                            <div class="img-wrapper"><img src="Image/nikereact 8.png" alt="Nike ReactX"></div>
+                            <div class="product-name">Nike ReactX Rejuven8</div>
+                            <div class="d-flex flex-column align-items-center">
+                                <span class="old-price text-decoration-line-through text-muted"
+                                    style="font-size: 13px;">2,069,000₫</span>
+                                <span class="product-price fw-bold text-danger">1,034,500₫</span>
+                            </div>
+                            <div class="color-dots d-flex justify-content-center gap-1 mt-2">
+                                <div class="color-dot" style="background-color: #d1f238;" title="Xanh Neon"></div>
+                                <div class="color-dot" style="background-color: #e0e0e0;" title="Xám"></div>
+                                <div class="color-dot" style="background-color: #7b4e4e;" title="Đỏ Đô"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-6 mb-4 product-item" data-brand="asics" data-color="light-gray beige dark"
+                        data-type="casual" data-size="39 40 41 42" data-price="2209000" data-order="2">
+                        <div class="card product-card border-0 text-center position-relative">
+                            <div
+                                class="sale-badge-small position-absolute top-0 start-0 rounded-circle text-white fw-bold d-flex align-items-center justify-content-center mt-2 ms-2">
+                                - 50%
+                            </div>
+                            <div class="img-wrapper"><img src="Image/MEXICO 66 SD.webp" alt="MEXICO 66"></div>
+                            <div class="product-name">MEXICO 66 SD</div>
+                            <div class="d-flex flex-column align-items-center">
+                                <span class="old-price text-decoration-line-through text-muted"
+                                    style="font-size: 13px;">4,418,182₫</span>
+                                <span class="product-price fw-bold text-danger">2,209,000₫</span>
+                            </div>
+                            <div class="color-dots d-flex justify-content-center gap-1 mt-2">
+                                <div class="color-dot" style="background-color: #e5e5e5;" title="Xám Nhạt"></div>
+                                <div class="color-dot" style="background-color: #c9b08f;" title="Nâu Vàng"></div>
+                                <div class="color-dot" style="background-color: #222;" title="Đen"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-6 mb-4 product-item" data-brand="converse"
+                        data-color="light-gray black dark" data-type="casual" data-size="38 39 40 41 42"
+                        data-price="1100000" data-order="3">
+                        <div class="card product-card border-0 text-center position-relative">
+                            <div
+                                class="sale-badge-small position-absolute top-0 start-0 rounded-circle text-white fw-bold d-flex align-items-center justify-content-center mt-2 ms-2">
+                                - 50%
+                            </div>
+                            <div class="img-wrapper"><img src="Image/chunk70.png" alt="Chuck 70"></div>
+                            <div class="product-name">CHUCK 70</div>
+                            <div class="d-flex flex-column align-items-center">
+                                <span class="old-price text-decoration-line-through text-muted"
+                                    style="font-size: 13px;">2,200,000₫</span>
+                                <span class="product-price fw-bold text-danger">1,100,000₫</span>
+                            </div>
+                            <div class="color-dots d-flex justify-content-center gap-1 mt-2">
+                                <div class="color-dot" style="background-color: #fff;" title="Trắng"></div>
+                                <div class="color-dot" style="background-color: #b5b5b5;" title="Xám"></div>
+                                <div class="color-dot" style="background-color: #222;" title="Đen"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-6 mb-4 product-item" data-brand="bitis" data-color="light-blue light-gray"
+                        data-type="the-thao casual" data-size="36 37 38 39" data-price="632500" data-order="4">
+                        <div class="card product-card border-0 text-center position-relative">
+                            <div
+                                class="sale-badge-small position-absolute top-0 start-0 rounded-circle text-white fw-bold d-flex align-items-center justify-content-center mt-2 ms-2">
+                                - 50%
+                            </div>
+                            <div class="img-wrapper"><img src="Image/Biti's Hunter EZ Lift.jpg" alt="Biti's Hunter">
+                            </div>
+                            <div class="product-name">Biti's Hunter EZ Lift</div>
+                            <div class="d-flex flex-column align-items-center">
+                                <span class="old-price text-decoration-line-through text-muted"
+                                    style="font-size: 13px;">1,265,000₫</span>
+                                <span class="product-price fw-bold text-danger">632,500₫</span>
+                            </div>
+                            <div class="color-dots d-flex justify-content-center gap-1 mt-2">
+                                <div class="color-dot" style="background-color: #e4ebf1;" title="Xanh Nhạt"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-6 mb-4 product-item" data-brand="nike" data-color="light-pink"
+                        data-type="casual" data-size="36 37 38 39" data-price="1759500" data-order="5">
+                        <div class="card product-card border-0 text-center position-relative">
+                            <div
+                                class="sale-badge-small position-absolute top-0 start-0 rounded-circle text-white fw-bold d-flex align-items-center justify-content-center mt-2 ms-2">
+                                - 50%
+                            </div>
+                            <div class="img-wrapper"><img src="Image/nike 107.png" alt="Nike Air Force 1 '07"></div>
+                            <div class="product-name">Nike Air Force 1 '07</div>
+                            <div class="d-flex flex-column align-items-center">
+                                <span class="old-price text-decoration-line-through text-muted"
+                                    style="font-size: 13px;">3,519,000₫</span>
+                                <span class="product-price fw-bold text-danger">1,759,500₫</span>
+                            </div>
+                            <div class="color-dots d-flex justify-content-center gap-1 mt-2">
+                                <div class="color-dot" style="background-color: #f4b8b8;" title="Hồng Phấn"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-6 mb-4 product-item" data-brand="converse" data-color="green light-pink"
+                        data-type="casual" data-size="36 37 38 39" data-price="1050000" data-order="6">
+                        <div class="card product-card border-0 text-center position-relative">
+                            <div
+                                class="sale-badge-small position-absolute top-0 start-0 rounded-circle text-white fw-bold d-flex align-items-center justify-content-center mt-2 ms-2">
+                                - 50%
+                            </div>
+                            <div class="img-wrapper"><img src="Image/trunk.png" alt="Run Star"></div>
+                            <div class="product-name">Chuck Taylor Lo</div>
+                            <div class="d-flex flex-column align-items-center">
+                                <span class="old-price text-decoration-line-through text-muted"
+                                    style="font-size: 13px;">2,100,000₫</span>
+                                <span class="product-price fw-bold text-danger">1,050,000₫</span>
+                            </div>
+                            <div class="color-dots d-flex justify-content-center gap-1 mt-2">
+                                <div class="color-dot" style="background-color: #5f7a61;" title="Xanh Rêu"></div>
+                                <div class="color-dot" style="background-color: #f4b8b8;" title="Hồng"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <nav class="mt-5">
+                    <ul class="pagination justify-content-center border-0">
+                        <li class="page-item mx-1"><a class="page-link rounded border-0 bg-light text-dark" href="#"><i
+                                    class="fa fa-angle-left"></i></a></li>
+                        <li class="page-item mx-1"><a class="page-link rounded border-0 bg-light text-dark"
+                                href="#">1</a></li>
+                        <li class="page-item mx-1"><a class="page-link rounded border-0 bg-light text-dark"
+                                href="#">2</a></li>
+                        <li class="page-item mx-1"><a class="page-link rounded border-0 bg-light text-dark" href="#"><i
+                                    class="fa fa-angle-right"></i></a></li>
+                    </ul>
+                </nav>
+            </section>
+        </div>
+    </main>
+
+    <div class="container pb-4">
+        <hr class="divider mb-5">
+        <div class="row justify-content-between">
+            <div class="col-md-5 footer-col mb-4">
+                <h5>GỌI MUA HÀNG ONLINE (08:00 - 21:00 mỗi ngày)</h5>
+                <p><strong>1900.xxxx.xx</strong></p>
+                <h5 style="margin-top: 25px;">GÓP Ý & KHIẾU NẠI (08:30 - 20:30)</h5>
+                <p><strong>1900.xxxx.xx</strong></p>
+                <p>Tất cả các ngày trong tuần (Trừ tết Âm Lịch)</p>
+            </div>
+            <div class="col-md-auto footer-col mb-4">
+                <h5>Thông tin</h5>
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-angle-right me-2"></i>Giới thiệu và cửa hàng</li>
+                    <li><i class="fa fa-angle-right me-2"></i>Chính sách và quy định</li>
+                </ul>
+            </div>
+            <div class="col-md-auto footer-col mb-4">
+                <h5>FAQ</h5>
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-angle-right me-2"></i>Vận chuyển</li>
+                    <li><i class="fa fa-angle-right me-2"></i>Chính sách đổi trả</li>
+                    <li><i class="fa fa-angle-right me-2"></i>Chính sách bảo hành</li>
+                    <li class="mt-3">
+                        <div class="social-row d-flex align-items-center gap-2">
+                            <span><i class="fa fa-angle-right me-2"></i>Đối tác</span>
+                            <img src="Image/fb.png" alt="FB">
+                            <img src="Image/shoppe.png" alt="Shopee">
+                            <img src="Image/tiktok.png" alt="Tiktok">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-black text-white py-5">
+        <div class="container text-center">
+            <h3 class="fs-5 fw-semibold mb-2">HỆ THỐNG CỬA HÀNG</h3>
+            <p class="text-secondary small mb-4">Xem địa chỉ các cửa hàng</p>
+            <hr class="border-secondary opacity-50 mb-4">
+
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-start">
+                <div class="info mb-3 mb-md-0">
+                    <p class="text-white fw-medium mb-1">SHOP GIÀY CỦA TUI</p>
+                    <p class="text-secondary small mb-0">Địa chỉ: Quận 8, Thành phố Hồ Chí Minh</p>
+                </div>
+                <div class="mall-section d-flex align-items-center gap-3">
+                    <span class="fs-2 fw-bold">Mall</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="floating-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+                d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z" />
+        </svg>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script/main.js">
+    </script>
+</body>
+
+</html>
