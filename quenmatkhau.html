@@ -91,15 +91,28 @@
             Vui lòng nhập địa chỉ email của bạn dưới đây để nhận được một liên kết đặt lại mật khẩu.
         </p>
 
-        <form>
+        <form id="forgot-password-form">
             <div class="mb-4">
                 <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                <input type="email" class="form-control custom-input" id="email" placeholder="Điền địa chỉ email của bạn...">
+                <input type="email" class="form-control custom-input" id="email" placeholder="Điền địa chỉ email của bạn..." required>
             </div>
 
             <button type="submit" class="btn custom-btn w-100">GỬI</button>
         </form>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const forgotForm = document.getElementById('forgot-password-form');
 
+            if (forgotForm) {
+                forgotForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const emailValue = document.getElementById('email').value;
+                    alert(`Một liên kết đặt lại mật khẩu đã được gửi đến email:\n${emailValue}\n\nVui lòng kiểm tra hộp thư của bạn!`);
+                    window.location.href = 'login.html'; 
+                });
+            }
+        });
+    </script>
 </body>
 </html>

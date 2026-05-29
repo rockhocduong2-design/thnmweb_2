@@ -145,12 +145,12 @@
                 <div class="mb-4">
                     <h6 class="fw-bold text-uppercase small mb-3">Màu sắc:</h6>
                     <div class="detail-color-dots">
-                        <div class="detail-color-dot selected" style="background-color: #f4b8b8;" title="Hồng Phấn"
-                            data-color="Hồng Phấn"></div>
-                        <div class="detail-color-dot" style="background-color: #ffffff;" title="Trắng Basic"
-                            data-color="Trắng Basic"></div>
-                        <div class="detail-color-dot" style="background-color: #000000;" title="Đen Huyền Bí"
-                            data-color="Đen Huyền Bí"></div>
+                        <div class="detail-color-dot selected" style="background-color: #d1f238;" title="Xanh Neon"
+                            data-color="Xanh Neon"></div>
+                        <div class="detail-color-dot" style="background-color: #cdaea1;" title="Hồng Đất"
+                            data-color="Hồng Đất"></div>
+                        <div class="detail-color-dot" style="background-color: #7b4e4e;" title="Đỏ Đô"
+                            data-color="Đỏ Đô"></div>
                     </div>
                 </div>
                 <div class="mb-4">
@@ -175,7 +175,7 @@
 
                 <div class="row g-3 pt-2">
                     <div class="col-md-6">
-                        <a href="dathang.html" class="btn btn-dark w-100 py-3 fw-bold text-uppercase shadow-sm"
+                        <a href="#" class="btn btn-dark w-100 py-3 fw-bold text-uppercase shadow-sm"
                             style="border-radius: 4px; letter-spacing: 0.5px;">
                             Mua ngay
                         </a>
@@ -215,25 +215,77 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
+   <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Xử lý click chọn Size giày
             const sizeItems = document.querySelectorAll('.detail-size-item');
             sizeItems.forEach(item => {
-                item.addEventListener('click', function () {
+                item.addEventListener('click', function() {
                     sizeItems.forEach(i => i.classList.remove('selected'));
                     this.classList.add('selected');
                 });
             });
 
-            // Xử lý click chọn Màu sắc
             const colorDots = document.querySelectorAll('.detail-color-dot');
             colorDots.forEach(dot => {
-                dot.addEventListener('click', function () {
+                dot.addEventListener('click', function() {
                     colorDots.forEach(d => d.classList.remove('selected'));
                     this.classList.add('selected');
                 });
             });
+
+            const addToCartBtn = document.querySelector('button.btn-outline-dark');
+
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener('click', function() {
+                    
+                    const productName = document.querySelector('h1.fs-2').innerText;
+                    const skuText = document.querySelector('p.text-muted.small').innerText;
+                    const productId = skuText.replace('Mã sản phẩm:', '').trim();
+                    const priceText = document.querySelector('h3.text-danger').innerText;
+                    const price = parseInt(priceText.replace(/\D/g, '')); 
+                    const productImage = document.querySelector('.product-detail-img').src;
+                    const selectedColorDiv = document.querySelector('.detail-color-dot.selected');
+                    const selectedSizeDiv = document.querySelector('.detail-size-item.selected');
+
+                    if (!selectedColorDiv || !selectedSizeDiv) {
+                        alert("Vui lòng chọn đầy đủ màu sắc và kích cỡ!");
+                        return;
+                    }
+
+                    const color = selectedColorDiv.getAttribute('data-color');
+                    const size = selectedSizeDiv.innerText;
+
+                    const product = {
+                        id: productId,
+                        name: productName,
+                        price: price,
+                        color: color,
+                        size: size,
+                        image: productImage,
+                        quantity: 1
+                    };
+
+                    let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+
+                    let existingItemIndex = -1;
+                    for (let i = 0; i < cart.length; i++) {
+                        if (cart[i].id === product.id && cart[i].color === product.color && cart[i].size === product.size) {
+                            existingItemIndex = i;
+                            break;
+                        }
+                    }
+
+                    if (existingItemIndex !== -1) {
+                        cart[existingItemIndex].quantity += 1;
+                    } else {
+                        cart.push(product);
+                    }
+
+                    localStorage.setItem('shoppingCart', JSON.stringify(cart));
+                    
+                    alert(`Đã thêm vào giỏ hàng!\n${productName} - Size: ${size} - Màu: ${color}\nTổng số loại sản phẩm trong giỏ: ${cart.length}`);
+                });
+            }
         });
     </script>
 </body>
